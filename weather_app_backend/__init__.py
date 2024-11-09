@@ -23,4 +23,4 @@ def get_weather1(api_key, city_name):
     print(response)
 
 
-get_weather1(api_key, city_name)
+#get_weather1(api_key, city_name)

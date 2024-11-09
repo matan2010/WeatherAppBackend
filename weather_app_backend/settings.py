@@ -90,6 +90,10 @@ CACHES = {
     }
 }
 
+API_KEY = "b8ca77e6ba27170bfd7dbd6df8808da8"
+WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
