@@ -3,7 +3,7 @@ from django.core.cache import cache
 from tkinter import *
 import math
 import os
-
+from datetime import datetime
 os.environ['DJANGO_SETTINGS_MODULE'] = 'weather_app_backend.settings'
 from django.core.cache import cache
 
@@ -89,3 +89,51 @@ def get_cached_weather_data(city):
         return cached_data  # Return cached weather data if found
     else:
         return "Weather data does not exist in cache."
+
+
+
+
+
+#################testttttttt
+
+
+def fetch_weather_forecast(city=None, lat=None, lon=None, days=1):
+    if not city and not (lat and lon):
+        raise ValueError("Please provide either a city or latitude and longitude.")
+    # Define the API endpoint
+    url = "https://api.weatherbit.io/v2.0/forecast/daily"######need to save this in another plsce
+
+    # Prepare parameters based on whether city or coordinates are provided
+    params = {"days": days, "key": "6d754a69848b437a8a81a96d565797c7"}##need to save this in another plsce
+    if city:
+        params["city"] = city
+    elif lat and lon:
+        params["lat"] = lat
+        params["lon"] = lon
+
+    # Make the request to the Weatherbit API
+    response = requests.get(url, params=params)
+
+    # Check if the response status code is not 200, and raise an exception if so
+    if response.status_code != 200:
+        raise Exception(f"Failed to fetch weather data. Status code: {response.status_code}")
+
+    # Parse the response JSON data
+    data = response.json()
+
+    # Extract the date, max temp, and min temp for each day
+    forecast_data = [
+        {
+            "date": day["datetime"],
+            "max_temp": int(day["max_temp"]),
+            "min_temp": int(day["min_temp"])
+        }
+        for day in data["data"]
+    ]
+
+    return forecast_data
+
+a = fetch_weather_forecast("London",days=3)
+b = fetch_weather_forecast(lat=51.5074,lon=-0.1278,days=3)
+print(a)
+print(b)
