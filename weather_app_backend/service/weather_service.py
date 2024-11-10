@@ -89,24 +89,3 @@ def get_cached_weather_data(city):
         return cached_data  # Return cached weather data if found
     else:
         return "Weather data does not exist in cache."
-
-
-b = get_weather_data("London")
-print(b)
-# print(a)
-
-
-a = get_weather_data(latitude=51.5085, longitude=-0.1257)
-print(a)
-
-b = get_weather_data("London")
-print(b)
-# print(a)
-
-# a = get_weather_data(latitude=35.6895, longitude=139.6917)
-# print(a)
-
-b = get_weather_data("Tokyo")
-print(b)
-k = get_cached_weather_data("Tokyo")
-print(k)
