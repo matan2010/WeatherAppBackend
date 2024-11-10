@@ -17,6 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.contrib import admin
+from django.urls import path
+from .views import weather_views  # Import from views.weather_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('weather/', weather_views.weather_post, name='weather_post'),
+    path('weather/<str:city>/', weather_views.weather_by_city, name='weather_by_city'),
+    path('weather/coordinates/<str:latitude>/<str:longitude>/', weather_views.weather_by_coordinates,
+         name='weather_by_coordinates'),
 ]
