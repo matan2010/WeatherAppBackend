@@ -34,6 +34,11 @@ def fetch_weather_from_api(city=None, latitude=None, longitude=None):
         params["lon"] = longitude
 
     response = requests.get(WEATHER_API_URL, params=params)
+
+    # Check if the response status code is not 200
+    if response.status_code != 200:
+        error_message = f"Error fetching weather data: {response.status_code} - {response.reason}"
+        raise Exception(error_message)
     response.raise_for_status()
     return response.json()
 
@@ -77,8 +82,8 @@ def get_weather_data(city=None, latitude=None, longitude=None):
     return normalized_data
 
 
-def get_cached_weather_data(city=None, latitude=None, longitude=None):
-    cache_key = generate_cache_key(city, latitude, longitude)
+def get_cached_weather_data(city):
+    cache_key = generate_cache_key(city)
     cached_data = cache.get(cache_key)
     if cached_data:
         return cached_data  # Return cached weather data if found
@@ -86,8 +91,7 @@ def get_cached_weather_data(city=None, latitude=None, longitude=None):
         return "Weather data does not exist in cache."
 
 
-
-b = get_weather_data("Reykjavik")
+b = get_weather_data("London")
 print(b)
 # print(a)
 
@@ -104,3 +108,5 @@ print(b)
 
 b = get_weather_data("Tokyo")
 print(b)
+k = get_cached_weather_data("Tokyo")
+print(k)
