@@ -61,10 +61,6 @@ This project focuses on building a robust and efficient Django backend for a wea
 - Comprehensive **API documentation** (via tool Postman).
 - **User Authentication** implementation for secure access and personalized features.
 
-Here's a sample section you can add to your `README.md` file to explain how to run your project and start Celery:
-
----
-
 ### Running the Project
 
 To run the weather app project, follow these steps:
