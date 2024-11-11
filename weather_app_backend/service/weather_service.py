@@ -4,13 +4,17 @@ from tkinter import *
 import math
 import os
 from datetime import datetime
+
 os.environ['DJANGO_SETTINGS_MODULE'] = 'weather_app_backend.settings'
 from django.core.cache import cache
 
 import re
 
-API_KEY = "b8ca77e6ba27170bfd7dbd6df8808da8"
-WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
+API_KEY_OPENWEATHERMAP = "b8ca77e6ba27170bfd7dbd6df8808da8"
+WEATHER_API_URL_OPENWEATHERMAP = "https://api.openweathermap.org/data/2.5/weather"
+
+API_KEY_WEATHERBIT = "6d754a69848b437a8a81a96d565797c7"
+WEATHER_API_URL_WEATHERBIT = "https://api.weatherbit.io/v2.0/forecast/daily"
 
 
 def generate_cache_key(city=None, latitude=None, longitude=None):
@@ -26,19 +30,18 @@ def cache_weather_data(key, data, timeout=300):
 
 
 def fetch_weather_from_api(city=None, latitude=None, longitude=None):
-    params = {"appid": API_KEY, "units": "metric"}
+    params = {"appid": API_KEY_OPENWEATHERMAP, "units": "metric"}
     if city:
         params["q"] = city
     else:
         params["lat"] = latitude
         params["lon"] = longitude
 
-    response = requests.get(WEATHER_API_URL, params=params)
+    response = requests.get(WEATHER_API_URL_OPENWEATHERMAP, params=params)
 
     # Check if the response status code is not 200
     if response.status_code != 200:
-        error_message = f"Error fetching weather data: {response.status_code} - {response.reason}"
-        raise Exception(error_message)
+        raise Exception(f"Error fetching weather data: {response.status_code} - {response.reason}")
     response.raise_for_status()
     return response.json()
 
@@ -91,20 +94,11 @@ def get_cached_weather_data(city):
         return "Weather data does not exist in cache."
 
 
-
-
-
-#################testttttttt
-
-
 def fetch_weather_forecast(city=None, lat=None, lon=None, days=1):
     if not city and not (lat and lon):
         raise ValueError("Please provide either a city or latitude and longitude.")
-    # Define the API endpoint
-    url = "https://api.weatherbit.io/v2.0/forecast/daily"######need to save this in another plsce
 
-    # Prepare parameters based on whether city or coordinates are provided
-    params = {"days": days, "key": "6d754a69848b437a8a81a96d565797c7"}##need to save this in another plsce
+    params = {"days": days, "key": API_KEY_WEATHERBIT}
     if city:
         params["city"] = city
     elif lat and lon:
@@ -112,11 +106,11 @@ def fetch_weather_forecast(city=None, lat=None, lon=None, days=1):
         params["lon"] = lon
 
     # Make the request to the Weatherbit API
-    response = requests.get(url, params=params)
+    response = requests.get(WEATHER_API_URL_WEATHERBIT, params=params)
 
     # Check if the response status code is not 200, and raise an exception if so
     if response.status_code != 200:
-        raise Exception(f"Failed to fetch weather data. Status code: {response.status_code}")
+        raise Exception(f"Error fetching weather data: {response.status_code} - {response.reason}")
 
     # Parse the response JSON data
     data = response.json()
@@ -133,7 +127,3 @@ def fetch_weather_forecast(city=None, lat=None, lon=None, days=1):
 
     return forecast_data
 
-a = fetch_weather_forecast("London",days=3)
-b = fetch_weather_forecast(lat=51.5074,lon=-0.1278,days=3)
-print(a)
-print(b)
