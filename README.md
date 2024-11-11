@@ -9,7 +9,7 @@ This project focuses on building a robust and efficient Django backend for a wea
 - **RESTful API**: Developed using Django REST Framework to handle weather data requests from the frontend.
 - **Efficient Caching**: Caches responses from third-party APIs to minimize redundant calls and improve response times.
 - **Weather Data Normalization**: Transforms incoming data from external APIs into a standardized format.
-- **User Authentication (Optional)**: Allows for user management and personalized experiences.
+- **User Authentication**: Allows for user management and personalized experiences.
 
 ## Goals
 
@@ -42,7 +42,7 @@ This project focuses on building a robust and efficient Django backend for a wea
 
 ### User Authentication
 
-- Implements **user authentication** using Django’s built-in authentication system or token-based authentication (via Django REST Framework).
+- Implements **user authentication** using Django’s built-in authentication system and token-based authentication (via Django REST Framework).
 - Supports user sessions for personalized weather features (e.g., saved locations, preferences).
 
 ## Technical Requirements
@@ -51,13 +51,13 @@ This project focuses on building a robust and efficient Django backend for a wea
 - **API Development**: Django REST Framework
 - **Caching**: Django’s caching framework (with Redis as the backend)
 - **External APIs**: OpenWeatherMap, Weatherbit
-- **Optional**: **Celery** for background tasks such as cache refreshing.
+- **Celery** for background tasks such as cache refreshing.
 
 ## Deliverables
 
 - A well-documented **Django project** with RESTful API endpoints to fetch and cache weather data.
 - A **service layer** that abstracts and handles interactions with external weather APIs.
-- Comprehensive **API documentation** (via tools such as Postman).
+- Comprehensive **API documentation** (via tool Postman).
 - **User Authentication** implementation for secure access and personalized features.
 
 
