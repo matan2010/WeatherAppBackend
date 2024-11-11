@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods, require_POST
 import json
@@ -5,8 +6,10 @@ from weather_app_backend.service.weather_service import get_weather_data, get_ca
     fetch_weather_forecast
 
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
 
 
+@login_required
 @csrf_exempt
 @require_http_methods(["POST"])
 def weather_post(request):
@@ -28,6 +31,7 @@ def weather_post(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
+@login_required
 @require_http_methods(["GET"])
 def weather_by_city(request, city):
     try:
@@ -39,6 +43,7 @@ def weather_by_city(request, city):
         return JsonResponse({"error": str(e)}, status=500)
 
 
+@login_required
 @require_http_methods(["GET"])
 def weather_by_coordinates(request, latitude, longitude):
     try:
@@ -73,3 +78,4 @@ def weather_forecast(request):
         return JsonResponse({"error": str(ve)}, status=400)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
