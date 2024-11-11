@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,10 @@ WEATHER_API_URL_OPENWEATHERMAP = "https://api.openweathermap.org/data/2.5/weathe
 
 API_KEY_WEATHERBIT = "6d754a69848b437a8a81a96d565797c7"
 WEATHER_API_URL_WEATHERBIT = "https://api.weatherbit.io/v2.0/forecast/daily"
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # URL for Redis broker
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Optional: to store task results
 
 
 # Session configuration
