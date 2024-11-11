@@ -61,4 +61,30 @@ This project focuses on building a robust and efficient Django backend for a wea
 - Comprehensive **API documentation** (via tool Postman).
 - **User Authentication** implementation for secure access and personalized features.
 
+Here's a sample section you can add to your `README.md` file to explain how to run your project and start Celery:
 
+---
+
+### Running the Project
+
+To run the weather app project, follow these steps:
+
+1. **Start the Django Development Server**
+
+   Run the following command to start the Django server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+   This will start the server on the default port (usually `http://127.0.0.1:8000`).
+
+2. **Run Celery with the Beat Scheduler**
+
+   To enable periodic tasks with Celery, run the following command in a separate terminal:
+
+   ```bash
+   celery -A weather_app_backend beat --loglevel=info
+   ```
+
+   This starts Celery with the beat scheduler, which handles scheduling tasks at regular intervals.
