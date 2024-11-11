@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_http_methods, require_POST
-import json
 from weather_app_backend.service.weather_service import get_weather_data, get_cached_weather_data, \
     fetch_weather_forecast
 
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+import json
 
 
 @login_required
@@ -59,6 +58,7 @@ def weather_by_coordinates(request, latitude, longitude):
         return JsonResponse({"error": str(e)}, status=500)
 
 
+@login_required
 @csrf_exempt
 @require_POST
 def weather_forecast(request):

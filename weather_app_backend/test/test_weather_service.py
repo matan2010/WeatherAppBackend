@@ -6,7 +6,8 @@ from weather_app_backend.service.weather_service import (
     fetch_weather_from_api,
     normalize_weather_data,
     get_weather_data,
-    get_cached_weather_data
+    get_cached_weather_data,
+    fetch_weather_forecast
 )
 
 
@@ -89,3 +90,68 @@ class TestWeatherService(unittest.TestCase):
         mock_get.return_value = None
         data = get_cached_weather_data(city="UnknownCity")
         self.assertEqual(data, "Weather data does not exist in cache.")
+
+    @patch(
+        "weather_app_backend.service.weather_service.requests.get")
+    def test_fetch_weather_forecast_city(self, mock_get):
+        # Mock response for a successful API call
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "data": [
+                {"datetime": "2024-11-12", "max_temp": 25, "min_temp": 15},
+                {"datetime": "2024-11-13", "max_temp": 23, "min_temp": 14}
+            ]
+        }
+        mock_get.return_value = mock_response
+
+        # Call the function with a city parameter
+        result = fetch_weather_forecast(city="New York", days=2)
+
+        # Check that the returned forecast data is correct
+        expected_result = [
+            {"date": "2024-11-12", "max_temp": 25, "min_temp": 15},
+            {"date": "2024-11-13", "max_temp": 23, "min_temp": 14}
+        ]
+        self.assertEqual(result, expected_result)
+
+    @patch(
+        "weather_app_backend.service.weather_service.requests.get")
+    def test_fetch_weather_forecast_lat_lon(self, mock_get):
+        # Mock response for a successful API call
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "data": [
+                {"datetime": "2024-11-12", "max_temp": 20, "min_temp": 10}
+            ]
+        }
+        mock_get.return_value = mock_response
+
+        # Call the function with latitude and longitude parameters
+        result = fetch_weather_forecast(lat=40.7128, lon=-74.0060, days=1)
+
+        # Check that the returned forecast data is correct
+        expected_result = [
+            {"date": "2024-11-12", "max_temp": 20, "min_temp": 10}
+        ]
+        self.assertEqual(result, expected_result)
+
+    def test_fetch_weather_forecast_missing_parameters(self):
+        # Test that a ValueError is raised if neither city nor lat/lon is provided
+        with self.assertRaises(ValueError):
+            fetch_weather_forecast(days=1)
+
+    @patch(
+        "weather_app_backend.service.weather_service.requests.get")
+    def test_fetch_weather_forecast_api_error(self, mock_get):
+        # Mock response for an API error (e.g., status code 404)
+        mock_response = MagicMock()
+        mock_response.status_code = 404
+        mock_response.reason = "Not Found"
+        mock_get.return_value = mock_response
+
+        # Test that an exception is raised with the correct message
+        with self.assertRaises(Exception) as context:
+            fetch_weather_forecast(city="NonExistentCity", days=1)
+        self.assertEqual(str(context.exception), "Error fetching weather data: 404 - Not Found")

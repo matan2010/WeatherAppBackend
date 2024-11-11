@@ -1,20 +1,16 @@
 import requests
-from django.core.cache import cache
-from tkinter import *
 import math
 import os
-from datetime import datetime
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'weather_app_backend.settings'
-from django.core.cache import cache
-
 import re
+from django.conf import settings
+from django.core.cache import cache
+os.environ['DJANGO_SETTINGS_MODULE'] = 'weather_app_backend.settings'
 
-API_KEY_OPENWEATHERMAP = "b8ca77e6ba27170bfd7dbd6df8808da8"
-WEATHER_API_URL_OPENWEATHERMAP = "https://api.openweathermap.org/data/2.5/weather"
+API_KEY_OPENWEATHERMAP = settings.API_KEY_OPENWEATHERMAP
+WEATHER_API_URL_OPENWEATHERMAP = settings.WEATHER_API_URL_OPENWEATHERMAP
 
-API_KEY_WEATHERBIT = "6d754a69848b437a8a81a96d565797c7"
-WEATHER_API_URL_WEATHERBIT = "https://api.weatherbit.io/v2.0/forecast/daily"
+API_KEY_WEATHERBIT = settings.API_KEY_WEATHERBIT
+WEATHER_API_URL_WEATHERBIT = settings.WEATHER_API_URL_WEATHERBIT
 
 
 def generate_cache_key(city=None, latitude=None, longitude=None):
