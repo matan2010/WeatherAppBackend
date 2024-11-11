@@ -126,4 +126,3 @@ def fetch_weather_forecast(city=None, lat=None, lon=None, days=1):
     ]
 
     return forecast_data
-

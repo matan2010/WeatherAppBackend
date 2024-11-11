@@ -55,16 +55,15 @@ def weather_by_coordinates(request, latitude, longitude):
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
+@require_POST
 def weather_forecast(request):
     try:
-        print("dfgdfgwm,nsdmfnsdm,fnf,dsm")
         # Parse JSON body
         data = json.loads(request.body)
-        city = data.get("city")
-        lat = data.get("lat")
-        lon = data.get("lon")
-        days = data.get("days")
+        city = data.get('city')
+        lat = data.get('lat')
+        lon = data.get('lon')
+        days = data.get('days')
 
         # Call the function and fetch forecast data
         forecast = fetch_weather_forecast(city=city, lat=lat, lon=lon, days=days)
