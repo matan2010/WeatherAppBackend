@@ -43,7 +43,8 @@ This project focuses on building a robust and efficient Django backend for a wea
 ### User Authentication
 
 - Implements **user authentication** using Django’s built-in authentication system and token-based authentication (via Django REST Framework).
-- Supports user sessions for personalized weather features (e.g., saved locations, preferences).
+- Supports user sessions for personalized weather features.
+- **Data Security**: After a user signs up, their data is securely stored in an SQL database, ensuring that all sensitive information is safeguarded in compliance with industry standards.
 
 ## Technical Requirements
 
