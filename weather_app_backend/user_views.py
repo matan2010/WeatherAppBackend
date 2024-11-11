@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -38,17 +39,15 @@ def weather_login(request):
 @api_view(['POST'])
 def signup(request):
     try:
-        if request.method == 'POST':
-            logger.info(f"Request data: {request.data}")  # Log request data
-            serializer = UserSerializer(data=request.data)
+        logger.info(f"Request data: {request.data}")  # Log request data
+        serializer = UserSerializer(data=request.data)
 
-            if serializer.is_valid():
-                serializer.save()
-                return Response({"message": "User created successfully!"}, status=status.HTTP_201_CREATED)
-            else:
-                logger.error(f"Validation errors: {serializer.errors}")  # Log validation errors
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User created successfully!"}, status=status.HTTP_201_CREATED)
+        else:
+            logger.error(f"Validation errors: {serializer.errors}")  # Log validation errors
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         logger.error(f"Error: {str(e)}")  # Log the error message
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-

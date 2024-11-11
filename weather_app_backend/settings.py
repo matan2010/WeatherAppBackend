@@ -58,6 +58,14 @@ REST_FRAMEWORK = {
     ],
 }
 
+
+API_KEY_OPENWEATHERMAP = "b8ca77e6ba27170bfd7dbd6df8808da8"
+WEATHER_API_URL_OPENWEATHERMAP = "https://api.openweathermap.org/data/2.5/weather"
+
+API_KEY_WEATHERBIT = "6d754a69848b437a8a81a96d565797c7"
+WEATHER_API_URL_WEATHERBIT = "https://api.weatherbit.io/v2.0/forecast/daily"
+
+
 # Session configuration
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database for sessions
 SESSION_COOKIE_AGE = 86400  # Set session expiration to 24 hours (in seconds)
