@@ -17,7 +17,7 @@ This project focuses on building a robust and efficient Django backend for a wea
 - Implement **caching mechanisms** to optimize performance and reduce unnecessary third-party API calls.
 - Build a service layer that efficiently interacts with external weather APIs.
 - Ensure **data consistency** and **integrity** by normalizing API responses.
-- (Optional) Implement **user authentication** to enable personalized user features.
+- Implement **user authentication** to enable personalized user features.
 
 ## Scope
 
@@ -25,8 +25,10 @@ This project focuses on building a robust and efficient Django backend for a wea
 
 - **POST /weather/**: Accepts location data (city name or coordinates) and returns current weather data.
 - **GET /weather/{city}/**: Returns cached weather data for a specified city.
-- **GET /weather/coordinates/**: Fetches weather data for provided geographical coordinates.
-- **Forecast Endpoints**: Retrieves 3-day or 7-day weather forecasts.
+- **GET /weather/coordinates/{latitude}/{longitude}**: Fetches weather data for provided geographical coordinates.
+- **POST /forecast/**: Retrieves 3-day or 7-day weather forecasts.
+- **POST /signup/**: Registers a new user and returns a success message with a token.
+- **POST /login/**: Authenticates a user and returns a session cookie and token for further requests.
 
 ### Caching
 
@@ -47,8 +49,8 @@ This project focuses on building a robust and efficient Django backend for a wea
 
 - **Framework**: Django
 - **API Development**: Django REST Framework
-- **Caching**: Django’s caching framework (with Memcached or Redis as the backend)
-- **External APIs**: OpenWeatherMap, Weatherbit, or similar
+- **Caching**: Django’s caching framework (with Redis as the backend)
+- **External APIs**: OpenWeatherMap, Weatherbit
 - **Optional**: **Celery** for background tasks such as cache refreshing.
 
 ## Deliverables
@@ -58,13 +60,4 @@ This project focuses on building a robust and efficient Django backend for a wea
 - Comprehensive **API documentation** (via tools such as Postman).
 - **User Authentication** implementation for secure access and personalized features.
 
-## Success Criteria
 
-- Fully functional **API endpoints** that reliably return accurate weather data.
-- **Efficient caching** that reduces external API calls and improves overall system performance.
-- **Clean, well-documented, and maintainable** code.
-- (Optional) **Secure user authentication** and enhanced user experience features.
-
----
-
-This structure presents the essential details of your project in a clear and professional manner, including an overview, goals, technical details, and deliverables. Feel free to adjust any sections to better suit your specific requirements or progress.
