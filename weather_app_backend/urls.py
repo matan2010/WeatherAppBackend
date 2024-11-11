@@ -13,4 +13,5 @@ urlpatterns = [
     path('weather/<str:city>/', weather_views.weather_by_city, name='weather_by_city'),
     path('weather/coordinates/<str:latitude>/<str:longitude>/', weather_views.weather_by_coordinates,
          name='weather_by_coordinates'),
+    path('forecast/', weather_views.weather_forecast, name='weather_forecast'),
 ]
